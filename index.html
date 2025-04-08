@@ -1,37 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./vue.js"></script>
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #cecece;
-            margin: 20px;
-            display: flex;
-            justify-content: center;
-            font-size: 2.0em;
-        }
-        
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <title>Exemplo Vue - Checkbox Interativo</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      font-size: 1.2em;
+    }
+
+    #app {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .resultado {
+      margin-top: 20px;
+    }
+
+    .item {
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
 <body>
-    <input type="checkbox" id="app" value="Item - 01">
-    <label for="Item - 01">Item - 1</label>
-    <br><br>
-    <span>Checando Item: {{  nome  }}</span>
-    <script>
-        const vm = new Vue({
-            el: "#app",
-            nome: "Leonardo",
-            data: {
-                nomeItem: []
-            }
-        });
+  <div id="app">
+    <h1>Lista de Itens</h1>
 
-    </script>
-    
+    <div v-for="item in itens" :key="item.id" class="item">
+      <input
+        type="checkbox"
+        :id="item.id"
+        :value="item.nome"
+        v-model="itensSelecionados"
+      />
+      <label :for="item.id">{{ item.nome }}</label>
+    </div>
+
+    <div class="resultado">
+      <p>Total selecionado: {{ itensSelecionados.length }}</p>
+      <p v-if="itensSelecionados.length">Itens checados: {{ itensSelecionados.join(', ') }}</p>
+      <p v-else>Nenhum item selecionado.</p>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        itens: [
+          { id: 'item1', nome: 'Item - 01' },
+          { id: 'item2', nome: 'Item - 02' },
+          { id: 'item3', nome: 'Item - 03' },
+        ],
+        itensSelecionados: [],
+      },
+    });
+  </script>
 </body>
 </html>
